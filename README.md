@@ -12,5 +12,5 @@ Học kỳ 1, Năm học 2023-2024
 
 **Lớp học phần**: CT27502
 
-**Tên dự án**: Tràn web review sách
+**Tên dự án**: Trang web review sách
 
