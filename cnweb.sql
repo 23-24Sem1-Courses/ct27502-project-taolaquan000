@@ -12,18 +12,11 @@ CREATE TABLE `books` (
   `category_id` int(11) NOT NULL,
   `image` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-ALTER TABLE `books`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `category_id` (`category_id`);
-  ADD CONSTRAINT `books_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`);
 
 CREATE TABLE `categories` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-ALTER TABLE `categories`
-  ADD PRIMARY KEY (`id`);
-
 
 CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
@@ -31,10 +24,6 @@ CREATE TABLE `orders` (
   `total_price` int(11) NOT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-ALTER TABLE `orders`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`);
-  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 CREATE TABLE `order_items` (
   `id` int(11) NOT NULL,
@@ -43,12 +32,6 @@ CREATE TABLE `order_items` (
   `quantity` int(11) NOT NULL,
   `price` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-ALTER TABLE `order_items`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `order_id` (`order_id`),
-  ADD KEY `book_id` (`book_id`);
-  ADD CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
-  ADD CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`);
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
@@ -60,8 +43,6 @@ CREATE TABLE `users` (
   `phone` varchar(255) NOT NULL,
   `role` int(2) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
 
 INSERT INTO `books` (`id`, `title`, `author`, `description`, `price`, `category_id`, `image`) VALUES
 (1, 'One Piece - Tập 95 (Bản Bìa Rời)', 'Oda Eiichiro', 'Mã Kim Đồng: \n6222203330095\nISBN: 978-604-2-24691-0\nTác giả: Eiichiro Oda\nĐối tượng: Tuổi mới lớn (15 – 18)\nKhuôn Khổ: 11.3x17.6 cm\nSố trang: 204\nĐịnh dạng: bìa mềm\nTrọng lượng: 150 gram\nBộ sách: One Piece', 16575, 3, 'uploads/one-piece-tap-95_chuyen-chu-du-cua-oden_1.jpg'),
@@ -106,23 +87,54 @@ INSERT INTO `users` (`id`, `username`, `password`, `email`, `fullname`, `address
 (6, 'admin', '$2y$10$nTws0eHFAK0Y1IbopWvIwO2izeCYOam.J2oNzcsvSPsrCdqmhIvOC', 'admin@gmail.com', '', '', '', 1);
 
 --
+-- Chỉ mục cho các bảng đã đổ
+--
+ALTER TABLE `books`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `category_id` (`category_id`);
+
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
+
+ALTER TABLE `order_items`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `order_id` (`order_id`),
+  ADD KEY `book_id` (`book_id`);
+
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+
 -- AUTO_INCREMENT cho các bảng đã đổ
 
 ALTER TABLE `books`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
-
 ALTER TABLE `categories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
 
 ALTER TABLE `orders`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
-
 ALTER TABLE `order_items`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
-
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+-- Các ràng buộc cho các bảng đã đổ
+
+ALTER TABLE `books`
+  ADD CONSTRAINT `books_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`);
+
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+ALTER TABLE `order_items`
+  ADD CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
+  ADD CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`);
+COMMIT;
