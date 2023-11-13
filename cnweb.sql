@@ -106,3 +106,23 @@ INSERT INTO `users` (`id`, `username`, `password`, `email`, `fullname`, `address
 (6, 'admin', '$2y$10$nTws0eHFAK0Y1IbopWvIwO2izeCYOam.J2oNzcsvSPsrCdqmhIvOC', 'admin@gmail.com', '', '', '', 1);
 
 --
+-- AUTO_INCREMENT cho các bảng đã đổ
+
+ALTER TABLE `books`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+
+ALTER TABLE `categories`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+
+ALTER TABLE `orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+
+ALTER TABLE `order_items`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
