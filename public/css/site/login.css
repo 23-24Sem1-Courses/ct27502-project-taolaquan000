@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap');
+*{
+   font-family: 'poppins' ,sans-serif;
+}
+.back-home a{
+   font-size: 24px;
+   color: rgb(9, 9, 246);
+   position: absolute;
+   top: 3rem;
+   left: 3rem;
+   text-decoration: none;
+   cursor: pointer;
+}
+.back-home a:hover {
+   color: rgb(1, 5, 27);
+   text-decoration: none;
+}
